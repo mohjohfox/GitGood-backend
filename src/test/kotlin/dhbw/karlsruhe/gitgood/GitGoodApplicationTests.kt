@@ -1,4 +1,4 @@
-package dhbw.karlsruhe.GitGood
+package dhbw.karlsruhe.gitgood
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
