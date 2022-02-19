@@ -18,8 +18,8 @@ class Security : WebSecurityConfigurerAdapter() {
      */
     @Throws(Exception::class)
     override fun configure(http: HttpSecurity) {
-        http.authorizeRequests().antMatchers("/test", "/").permitAll().and().csrf()
-            .ignoringAntMatchers("/login")
+        http.authorizeRequests().antMatchers("/test", "/", "/game/start").permitAll().and().csrf()
+                .ignoringAntMatchers("/login", "/game/start")
         http.exceptionHandling().accessDeniedPage("/access-denied")
         http.cors()
     }
