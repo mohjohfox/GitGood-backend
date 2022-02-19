@@ -9,7 +9,7 @@ class TestController {
 
     @GetMapping("/")
     fun test(): String {
-        DatabaseConnection.connection .use { connection ->
+        DatabaseConnection.getConnection().use { connection ->
             val rs = connection.createStatement().executeQuery("SELECT Name FROM Test;")
             while (rs.next()) {
                 println(rs.getString("Name"))
