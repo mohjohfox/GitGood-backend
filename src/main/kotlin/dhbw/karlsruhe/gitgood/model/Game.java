@@ -1,7 +1,6 @@
 package dhbw.karlsruhe.gitgood.model;
 
 import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -9,7 +8,8 @@ import lombok.Data;
 @AllArgsConstructor
 public class Game {
 
-    private String id;
+    private String gameId;
     private List<Player> players;
+    private GameMode gameMode;
 
 }
