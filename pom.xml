@@ -101,6 +101,16 @@
 		<testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
 		<plugins>
 			<plugin>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<configuration>
+					<path>/</path>
+					<server>TomcatServer</server>
+					<url>${server.url}</url>
+				</configuration>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<version>2.2</version>
+			</plugin>
+			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
