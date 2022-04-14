@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - master
-      - GG-51-add-github-actions
 
   workflow_dispatch:
 
