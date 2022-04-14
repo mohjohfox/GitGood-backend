@@ -1,0 +1,61 @@
+name: master Pipeline
+
+on:
+  push:
+    branches: master
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+
+      - name: build with maven
+        run: mvn install -Dmaven.test.skip=true
+
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+
+      - name: run tests with maven
+        run: mvn test
+
+  deploy:
+    needs:
+      - build
+      - test
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+
+      - name: deploy with maven on tomcat
+        run: mvn -B -Dserver.url=${{ secrets.TOMCAT_SERVER_URL }} tomcat7:redeploy -f $GITHUB_WORKSPACE/pom.xml -s $GITHUB_WORKSPACE/.github/workflows/settings.xml
+        env:
+          TOMCAT_SERVER_USER: ${{ secrets.TOMCAT_SERVER_USER }}
+          TOMCAT_SERVER_PASSWORD: ${{ secrets.TOMCAT_SERVER_PASSWORD }}
