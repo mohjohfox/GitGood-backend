@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class Test {
 
   @Autowired
-  JdbcTemplate jdbcTemplate;
+  private JdbcTemplate jdbcTemplate;
 
   @GetMapping("/test2")
   public String test() {
