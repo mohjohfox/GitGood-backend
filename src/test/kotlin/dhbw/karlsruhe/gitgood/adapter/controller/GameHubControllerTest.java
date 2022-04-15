@@ -20,17 +20,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class GameControllerTest extends TestSupport {
+public class GameHubControllerTest extends TestSupport {
 
     @LocalServerPort
     private int randomServerPort;
     @Autowired
     private TestRestTemplate restTemplate;
-    @Autowired
-    private GameHubService gameHubService;
-
     @Test
-    public void findSessionById_WithValidId() throws Exception {
+    public void startGame_WithValidGameParameter() {
 
         Game game = createGame();
         String baseUrl = "http://localhost:" + randomServerPort + "/game/start";

@@ -47,6 +47,20 @@ class GameHubServiceTest extends TestSupport {
     }
 
     @Test
+    void openNewGame_NotValidGame_InvalidPlayerName() {
+        //given
+        Game game = createGame();
+        assertThat(gameHubService.getAllGames()).isEmpty();
+
+        //when
+        game.getPlayers().get(0).setPlayerName(";");
+        gameHubService.openNewGame(game);
+
+        //then
+        assertThat(gameHubService.getAllGames()).isEmpty();
+    }
+
+    @Test
     void getAllGames() {
         //given
         Game firstGame = createGame();

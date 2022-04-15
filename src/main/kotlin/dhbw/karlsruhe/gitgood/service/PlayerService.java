@@ -11,7 +11,7 @@ public class PlayerService {
   public boolean isPlayerNameValid(String playerName){
     Pattern p = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
     Matcher m = p.matcher(playerName);
-    return m.find();
+    return !m.find();
   }
 
   public boolean arePlayerNamesValid(List<String> playerNames){

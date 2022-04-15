@@ -12,7 +12,7 @@ import dhbw.karlsruhe.gitgood.model.Game;
 import dhbw.karlsruhe.gitgood.service.GameHubService;
 
 @RestController
-public class GameController {
+public class GameHubController {
 
     @Autowired
     private GameHubService gameHubService;

@@ -9,4 +9,8 @@ public class Player {
   private String playerName;
   private String points;
 
+  public Player(String playerId, String playerName) {
+    this.playerId = playerId;
+    this.playerName = playerName;
+  }
 }
