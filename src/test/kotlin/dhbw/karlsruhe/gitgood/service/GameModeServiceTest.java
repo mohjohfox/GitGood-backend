@@ -18,10 +18,9 @@ class GameModeServiceTest {
 
   @Test
   public void getAllGameModesContainsAll() {
-    List<GameMode> allGameModes = List.of(GameMode.FIVEHUNDREDONE, GameMode.THREEHUNDREDONE,
-        GameMode.CRICKET,
-        GameMode.SHANGHAI,
-        GameMode.ROUNDTHECLOCK, GameMode.ONEHUNDREDTWENTYDOWNANDUPWARDS);
+    List<GameMode> allGameModes = List.of(new GameMode("501", "Test description"), new GameMode("301", "Test description"),
+        new GameMode("Cricket", "Test description"), new GameMode("Shanghai", "Test description"),
+        new GameMode("Round the clock", "Test description"), new GameMode("120 - runter und rauf", "Test description"));
     assertTrue(
         CollectionUtils.isEqualCollection(gameModeService.getAllGameModes(), allGameModes));
   }
@@ -33,7 +32,7 @@ class GameModeServiceTest {
 
     //then
     assertTrue(gameModeService.getGameModeByName(gameModeName).isPresent());
-    assertEquals(gameModeService.getGameModeByName(gameModeName).get(), GameMode.CRICKET);
+    assertEquals(gameModeService.getGameModeByName(gameModeName).get(), new GameMode("Cricket", "Test description"));
   }
 
   @Test

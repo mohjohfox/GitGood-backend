@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 import dhbw.karlsruhe.gitgood.model.GameMode;
 import java.util.List;
+import java.util.Objects;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,14 +30,16 @@ class GameModeControllerTest {
   @Test
   public void findGameModeByName_WithValidGameModeId() {
 
-    String gameMode = "Cricket";
-    String baseUrl = "http://localhost:" + randomServerPort + "/gamemode/" + gameMode;
+    String gameModeName = "Cricket";
+    GameMode gameMode = new GameMode("Cricket", "Test description");
+    String baseUrl = "http://localhost:" + randomServerPort + "/gamemode/" + gameModeName;
 
     ResponseEntity<GameMode> response = restTemplate.exchange(baseUrl, HttpMethod.GET, null,
         GameMode.class);
 
     assertEquals(HttpStatus.OK.value(), response.getStatusCode().value());
-    assertEquals(GameMode.CRICKET, response.getBody());
+    assertEquals(gameMode.getName(), Objects.requireNonNull(response.getBody()).getName());
+    assertEquals(gameMode.getDescription(), response.getBody().getDescription());
   }
 
   @Test
@@ -62,10 +65,9 @@ class GameModeControllerTest {
         });
 
     assertEquals(HttpStatus.OK.value(), response.getStatusCode().value());
-    assertEquals(List.of(GameMode.FIVEHUNDREDONE, GameMode.THREEHUNDREDONE,
-        GameMode.CRICKET,
-        GameMode.SHANGHAI,
-        GameMode.ROUNDTHECLOCK, GameMode.ONEHUNDREDTWENTYDOWNANDUPWARDS), response.getBody());
+    assertEquals(List.of(new GameMode("501", "Test description"), new GameMode("301", "Test description"),
+        new GameMode("Cricket", "Test description"), new GameMode("Shanghai", "Test description"),
+        new GameMode("Round the clock", "Test description"), new GameMode("120 - runter und rauf", "Test description")), response.getBody());
   }
 
 }
