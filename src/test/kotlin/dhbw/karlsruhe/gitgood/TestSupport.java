@@ -5,12 +5,11 @@ import dhbw.karlsruhe.gitgood.model.GameMode;
 import dhbw.karlsruhe.gitgood.model.Player;
 import java.util.List;
 import java.util.UUID;
-import org.springframework.security.core.parameters.P;
 
 public abstract class TestSupport {
 
     protected Game createGame() {
-        return new Game(UUID.randomUUID().toString(), generatePlayers(), GameMode.FIVEHUNDREDONE);
+        return new Game(UUID.randomUUID().toString(), generatePlayers(), new GameMode("501", "Test description"));
     }
 
     private List<Player> generatePlayers(){
