@@ -2,12 +2,12 @@ package dhbw.karlsruhe.gitgood.model;
 
 public enum GameModeEnum {
 
-  FIVEHUNDREDONE("501", "Test description"),
-  THREEHUNDREDONE("301", "Test description"),
-  CRICKET("Cricket", "Test description"),
-  SHANGHAI("Shanghai", "Test description"),
-  ROUNDTHECLOCK("Round the clock", "Test description"),
-  ONEHUNDREDTWENTYDOWNANDUPWARDS("120 - runter und rauf", "Test description");
+  FIVEHUNDREDONE("501", "Fivehundredone gamerules"),
+  THREEHUNDREDONE("301", "301 gamerules"),
+  CRICKET("Cricket", "This is cricket"),
+  SHANGHAI("Shanghai", "I am from shanghai"),
+  ROUNDTHECLOCK("Round the clock", "the clock is ticking"),
+  ONEHUNDREDTWENTYDOWNANDUPWARDS("120 - runter und rauf", "up and down");
   private final String name;
   private final String description;
 
