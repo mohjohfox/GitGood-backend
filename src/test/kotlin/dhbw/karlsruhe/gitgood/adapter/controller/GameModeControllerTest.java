@@ -31,7 +31,7 @@ class GameModeControllerTest {
   public void findGameModeByName_WithValidGameModeId() {
 
     String gameModeName = "Cricket";
-    GameMode gameMode = new GameMode("Cricket", "Test description");
+    GameMode gameMode = new GameMode("Cricket", "This is cricket");
     String baseUrl = "http://localhost:" + randomServerPort + "/gamemode/" + gameModeName;
 
     ResponseEntity<GameMode> response = restTemplate.exchange(baseUrl, HttpMethod.GET, null,
@@ -65,9 +65,9 @@ class GameModeControllerTest {
         });
 
     assertEquals(HttpStatus.OK.value(), response.getStatusCode().value());
-    assertEquals(List.of(new GameMode("501", "Test description"), new GameMode("301", "Test description"),
-        new GameMode("Cricket", "Test description"), new GameMode("Shanghai", "Test description"),
-        new GameMode("Round the clock", "Test description"), new GameMode("120 - runter und rauf", "Test description")), response.getBody());
+    assertEquals(List.of(new GameMode("501", "Fivehundredone gamerules"), new GameMode("301", "301 gamerules"),
+            new GameMode("Cricket", "This is cricket"), new GameMode("Shanghai", "I am from shanghai"),
+            new GameMode("Round the clock", "the clock is ticking"), new GameMode("120 - runter und rauf", "up and down")), response.getBody());
   }
 
 }
