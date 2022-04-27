@@ -2,8 +2,10 @@ package dhbw.karlsruhe.gitgood.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class GameHub {
+
     private static GameHub gameHub = null;
     private List<Game> openGames = new ArrayList<>();
 
@@ -15,6 +17,9 @@ public class GameHub {
     }
 
     public void addGame(Game game) {
+        String generatedGameId = UUID.randomUUID().toString();
+        game.setGameId(generatedGameId);
+        game.setPlayer(game.getPlayers().get(0));
         openGames.add(game);
     }
 
