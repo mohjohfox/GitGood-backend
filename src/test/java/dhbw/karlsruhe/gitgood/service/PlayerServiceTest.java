@@ -1,12 +1,9 @@
 package dhbw.karlsruhe.gitgood.service;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import dhbw.karlsruhe.gitgood.model.Game;
 import java.util.List;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,7 +16,6 @@ public class PlayerServiceTest {
 
   @Test
   void checkSinglePlayerName_ValidName() {
-
     String playerName = "Anton";
 
     assertTrue(playerService.isPlayerNameValid(playerName));

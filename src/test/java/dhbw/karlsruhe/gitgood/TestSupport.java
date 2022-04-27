@@ -9,7 +9,8 @@ import java.util.UUID;
 public abstract class TestSupport {
 
     protected Game createGame() {
-        return new Game(UUID.randomUUID().toString(), generatePlayers(), new GameMode("501", "Test description"));
+        return new Game(UUID.randomUUID().toString(), generatePlayers(), null,
+            new GameMode("501", "Test description"));
     }
 
     private List<Player> generatePlayers(){
