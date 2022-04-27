@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"dhbw.karlsruhe.gitgood"},{"l":"dhbw.karlsruhe.gitgood.adapter.controller"},{"l":"dhbw.karlsruhe.gitgood.model"},{"l":"dhbw.karlsruhe.gitgood.security"},{"l":"dhbw.karlsruhe.gitgood.service"},{"l":"dhbw.karlsruhe.gitgood.util"}];updateSearchResults();
