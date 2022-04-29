@@ -10,6 +10,7 @@ public class Game {
 
     private String gameId;
     private List<Player> players;
+    private Player player;
     private GameMode gameMode;
 
 }

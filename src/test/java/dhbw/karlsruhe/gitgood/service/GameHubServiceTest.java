@@ -1,14 +1,13 @@
 package dhbw.karlsruhe.gitgood.service;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import dhbw.karlsruhe.gitgood.TestSupport;
+import dhbw.karlsruhe.gitgood.model.Game;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import dhbw.karlsruhe.gitgood.TestSupport;
-import dhbw.karlsruhe.gitgood.model.Game;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 class GameHubServiceTest extends TestSupport {
@@ -27,10 +26,8 @@ class GameHubServiceTest extends TestSupport {
         Game game = createGame();
         assertThat(gameHubService.getAllGames()).isEmpty();
 
-        //when
-        gameHubService.openNewGame(game);
-
         //then
+        assertThat(gameHubService.openNewGame(game)).isPresent().get().isEqualTo(game);
         assertThat(gameHubService.getAllGames()).hasSize(1).containsExactly(game);
     }
 
@@ -39,10 +36,8 @@ class GameHubServiceTest extends TestSupport {
         //given
         assertThat(gameHubService.getAllGames()).isEmpty();
 
-        //when
-        gameHubService.openNewGame(null);
-
         //then
+        assertThat(gameHubService.openNewGame(null)).isEmpty();
         assertThat(gameHubService.getAllGames()).isEmpty();
     }
 
@@ -54,9 +49,9 @@ class GameHubServiceTest extends TestSupport {
 
         //when
         game.getPlayers().get(0).setPlayerName(";");
-        gameHubService.openNewGame(game);
-
+        
         //then
+        assertThat(gameHubService.openNewGame(game)).isEmpty();
         assertThat(gameHubService.getAllGames()).isEmpty();
     }
 
