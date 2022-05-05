@@ -32,6 +32,17 @@ public class GameHubService {
         return gameHub.getOpenGames();
     }
 
+    public Optional<Game> getGameById(String gameId){
+        return getAllGames().stream().filter(v -> v.getGameId().equals(gameId)).findFirst();
+    }
+    public void deleteGameById(String gameId){
+        Optional<Game> gameOptional = getGameById(gameId);
+        gameOptional.ifPresent(game -> getAllGames().remove(game));
+    }
+    public void deleteAllGames() {
+        getAllGames().clear();
+    }
+
     private List<String> getAllPlayerNamesFromGame(Game game){
         return game.getPlayers().stream().map(Player::getPlayerName).collect(Collectors.toList());
     }

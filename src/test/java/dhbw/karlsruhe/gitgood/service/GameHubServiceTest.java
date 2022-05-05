@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import dhbw.karlsruhe.gitgood.TestSupport;
 import dhbw.karlsruhe.gitgood.model.Game;
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,6 +70,58 @@ class GameHubServiceTest extends TestSupport {
 
         //then
         assertThat(gameHubService.getAllGames()).hasSize(2).containsExactly(firstGame, secondGame);
+    }
+
+    @Test
+    void deleteAllGames() {
+        //given
+        Game firstGame = createGame();
+        Game secondGame = createGame();
+        assertThat(gameHubService.getAllGames()).isEmpty();
+
+        //when
+        gameHubService.openNewGame(firstGame);
+        gameHubService.openNewGame(secondGame);
+        assertThat(gameHubService.getAllGames()).hasSize(2).containsExactly(firstGame, secondGame);
+        gameHubService.deleteAllGames();
+
+        //then
+        assertThat(gameHubService.getAllGames()).isEmpty();
+    }
+
+    @Test
+    void deleteGameById() {
+        //given
+        Game firstGame = createGame();
+        Game secondGame = createGame();
+        gameHubService.openNewGame(firstGame);
+        gameHubService.openNewGame(secondGame);
+        assertThat(gameHubService.getAllGames()).hasSize(2).containsExactly(firstGame, secondGame);
+
+        //when
+        String gameId = firstGame.getGameId();
+        gameHubService.deleteGameById(gameId);
+
+        //then
+        assertThat(gameHubService.getAllGames()).hasSize(1).containsExactly(secondGame);
+    }
+
+    @Test
+    void getGameById() {
+        //given
+        Game firstGame = createGame();
+        Game secondGame = createGame();
+        gameHubService.openNewGame(firstGame);
+        gameHubService.openNewGame(secondGame);
+        assertThat(gameHubService.getAllGames()).hasSize(2).containsExactly(firstGame, secondGame);
+
+        //when
+        String gameId = firstGame.getGameId();
+        Optional<Game> gameOptional = gameHubService.getGameById(gameId);
+
+        //then
+        assertThat(gameOptional).isPresent();
+        assertThat(gameOptional.get()).isEqualTo(firstGame);
     }
 
 }
