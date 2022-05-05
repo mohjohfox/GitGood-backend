@@ -40,12 +40,12 @@ public class GameHubController {
             .orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
 
-    @PostMapping(value = "/delete/{gameId}")
+    @DeleteMapping(value = "/delete/{gameId}")
     public void deleteGameById(@PathVariable String gameId) {
         gameHubService.deleteGameById(gameId);
     }
 
-    @PostMapping(value = "/delete/all")
+    @DeleteMapping(value = "/delete-all")
     public void deleteAllGames() {
         gameHubService.deleteAllGames();
     }

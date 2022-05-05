@@ -1,6 +1,8 @@
 package dhbw.karlsruhe.gitgood.adapter.controller;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import dhbw.karlsruhe.gitgood.TestSupport;
 import dhbw.karlsruhe.gitgood.model.Game;
@@ -47,7 +49,6 @@ public class GameHubControllerTest extends TestSupport {
 
     @Test
     public void startGame_WithNotValidGameParameter() {
-
         Game game = createGame();
         String baseUrl = "http://localhost:" + randomServerPort + "/game/start";
 
@@ -83,6 +84,74 @@ public class GameHubControllerTest extends TestSupport {
 
         assertEquals(HttpStatus.OK.value(), response.getStatusCode().value());
         assertEquals(List.of(), response.getBody());
+    }
+
+    @Test
+    public void deleteGameById() {
+        Game game1 = createGame();
+        Game game2 = createGame();
+
+        gameHubService.openNewGame(game1);
+        gameHubService.openNewGame(game2);
+
+        String baseUrl = "http://localhost:" + randomServerPort + "/delete/" + game1.getGameId();
+
+        assertThat(gameHubService.getAllGames()).hasSize(2).containsExactly(game1, game2);
+
+        restTemplate.delete(baseUrl);
+
+        assertThat(gameHubService.getAllGames()).hasSize(1).containsExactly(game2);
+    }
+
+    @Test
+    public void deleteAllGames() {
+        String baseUrl = "http://localhost:" + randomServerPort + "/delete-all";
+
+        Game game = createGame();
+        gameHubService.openNewGame(game);
+        assertThat(gameHubService.getAllGames()).hasSize(1).containsExactly(game);
+
+        restTemplate.delete(baseUrl);
+
+        assertEquals(List.of(), gameHubService.getAllGames());
+    }
+
+    @Test
+    public void findGameById_WithValidId() {
+        Game game1 = createGame();
+        Game game2 = createGame();
+        gameHubService.openNewGame(game1);
+        gameHubService.openNewGame(game2);
+
+        String baseUrl = "http://localhost:" + randomServerPort + "/game/" + game1.getGameId();
+
+
+        assertThat(gameHubService.getAllGames()).hasSize(2).containsExactly(game1, game2);
+
+        ResponseEntity<Game> response = restTemplate.exchange(baseUrl, HttpMethod.GET, null,
+            new ParameterizedTypeReference<>() {
+            });
+
+        assertEquals(game1, response.getBody());
+    }
+
+    @Test
+    public void findGameById_WithNotValidId() {
+        Game game1 = createGame();
+        Game game2 = createGame();
+        gameHubService.openNewGame(game1);
+        gameHubService.openNewGame(game2);
+
+        String baseUrl = "http://localhost:" + randomServerPort + "/game/blub";
+
+
+        assertThat(gameHubService.getAllGames()).hasSize(2).containsExactly(game1, game2);
+
+        ResponseEntity<Game> response = restTemplate.exchange(baseUrl, HttpMethod.GET, null,
+            new ParameterizedTypeReference<>() {
+            });
+
+        assertNull(response.getBody());
     }
 
 }
