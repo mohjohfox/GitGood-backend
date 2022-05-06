@@ -33,7 +33,7 @@ public class GameHubService {
     }
 
     public Optional<Game> getGameById(String gameId){
-        return getAllGames().stream().filter(v -> v.getGameId().equals(gameId)).findFirst();
+        return getAllGames().stream().filter(v -> v.getId().equals(gameId)).findFirst();
     }
     public void deleteGameById(String gameId){
         Optional<Game> gameOptional = getGameById(gameId);
@@ -44,6 +44,6 @@ public class GameHubService {
     }
 
     private List<String> getAllPlayerNamesFromGame(Game game){
-        return game.getPlayers().stream().map(Player::getPlayerName).collect(Collectors.toList());
+        return game.getPlayers().stream().map(Player::getName).collect(Collectors.toList());
     }
 }

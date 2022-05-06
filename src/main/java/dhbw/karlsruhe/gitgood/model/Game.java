@@ -8,9 +8,10 @@ import lombok.Data;
 @AllArgsConstructor
 public class Game {
 
-    private String gameId;
+    private String id;
     private List<Player> players;
-    private Player player;
+    private Player currentPlayer;
     private GameMode gameMode;
+    private boolean isFinished;
 
 }

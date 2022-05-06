@@ -10,7 +10,7 @@ public abstract class TestSupport {
 
     protected Game createGame() {
         return new Game(UUID.randomUUID().toString(), generatePlayers(), null,
-            new GameMode("501", "Test description"));
+            new GameMode("501", "Test description"), false);
     }
 
     private List<Player> generatePlayers(){

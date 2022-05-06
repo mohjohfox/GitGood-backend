@@ -49,7 +49,7 @@ class GameHubServiceTest extends TestSupport {
         assertThat(gameHubService.getAllGames()).isEmpty();
 
         //when
-        game.getPlayers().get(0).setPlayerName(";");
+        game.getPlayers().get(0).setName(";");
         
         //then
         assertThat(gameHubService.openNewGame(game)).isEmpty();
@@ -99,7 +99,7 @@ class GameHubServiceTest extends TestSupport {
         assertThat(gameHubService.getAllGames()).hasSize(2).containsExactly(firstGame, secondGame);
 
         //when
-        String gameId = firstGame.getGameId();
+        String gameId = firstGame.getId();
         gameHubService.deleteGameById(gameId);
 
         //then
@@ -116,12 +116,23 @@ class GameHubServiceTest extends TestSupport {
         assertThat(gameHubService.getAllGames()).hasSize(2).containsExactly(firstGame, secondGame);
 
         //when
-        String gameId = firstGame.getGameId();
+        String gameId = firstGame.getId();
         Optional<Game> gameOptional = gameHubService.getGameById(gameId);
 
         //then
         assertThat(gameOptional).isPresent();
         assertThat(gameOptional.get()).isEqualTo(firstGame);
+    }
+    @Test
+    void openNewGame_ValidGame_WithPointInit() {
+        //given
+        Game game = createGame();
+        assertThat(gameHubService.getAllGames()).isEmpty();
+
+        //then
+        assertThat(gameHubService.openNewGame(game)).isPresent().get().isEqualTo(game);
+        assertThat(gameHubService.getAllGames()).hasSize(1).containsExactly(game);
+        assertThat(gameHubService.getGameById(game.getId()).get().getCurrentPlayer().getPoints()).isEqualTo(501);
     }
 
 }
