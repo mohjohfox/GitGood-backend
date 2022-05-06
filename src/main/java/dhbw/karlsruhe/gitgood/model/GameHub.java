@@ -18,8 +18,8 @@ public class GameHub {
 
     public void addGame(Game game) {
         String generatedGameId = UUID.randomUUID().toString();
-        game.setGameId(generatedGameId);
-        game.setPlayer(game.getPlayers().get(0));
+        game.setId(generatedGameId);
+        game.setCurrentPlayer(game.getPlayers().get(0));
         openGames.add(game);
     }
 

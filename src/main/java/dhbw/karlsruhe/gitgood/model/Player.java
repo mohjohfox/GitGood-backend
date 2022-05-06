@@ -5,12 +5,14 @@ import lombok.Data;
 @Data
 public class Player {
 
-  private String playerId;
-  private String playerName;
-  private String points;
+  private String id;
+  private String name;
+  private int points;
+  private String[] thrownPoints;
 
-  public Player(String playerId, String playerName) {
-    this.playerId = playerId;
-    this.playerName = playerName;
+  public Player(String id, String name) {
+    this.id = id;
+    this.name = name;
   }
+
 }

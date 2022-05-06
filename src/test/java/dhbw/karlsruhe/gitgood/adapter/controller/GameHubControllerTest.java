@@ -94,7 +94,7 @@ public class GameHubControllerTest extends TestSupport {
         gameHubService.openNewGame(game1);
         gameHubService.openNewGame(game2);
 
-        String baseUrl = "http://localhost:" + randomServerPort + "/delete/" + game1.getGameId();
+        String baseUrl = "http://localhost:" + randomServerPort + "/delete/" + game1.getId();
 
         assertThat(gameHubService.getAllGames()).hasSize(2).containsExactly(game1, game2);
 
@@ -123,7 +123,7 @@ public class GameHubControllerTest extends TestSupport {
         gameHubService.openNewGame(game1);
         gameHubService.openNewGame(game2);
 
-        String baseUrl = "http://localhost:" + randomServerPort + "/game/" + game1.getGameId();
+        String baseUrl = "http://localhost:" + randomServerPort + "/game/" + game1.getId();
 
 
         assertThat(gameHubService.getAllGames()).hasSize(2).containsExactly(game1, game2);
