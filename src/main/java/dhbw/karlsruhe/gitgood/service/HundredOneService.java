@@ -11,18 +11,26 @@ public class HundredOneService extends CalculationService {
   @Override
   public Game calculateRound(Game game){
     Player currentPlayer = game.getCurrentPlayer();
-    int sumOfThrownPoints = findSumUsingStream(currentPlayer.getThrownPoints());
-    int oldPoints = currentPlayer.getPoints();
-    int newPoints = oldPoints - sumOfThrownPoints;
 
-    if (newPoints >= 0){
-      currentPlayer.setPoints(newPoints);
-    }
+    calculateNewPointsForCurrPlayer(currentPlayer, findSumUsingStream(currentPlayer.getThrownPoints()));
 
     game.setFinished(isFinished(currentPlayer));
+
     selectNextPlayer(game);
 
     return game;
+  }
+
+  private void calculateNewPointsForCurrPlayer(Player currPlayer, int sumOfThrownPoints){
+    int newPoints = currPlayer.getPoints() - sumOfThrownPoints;
+
+    if (newPoints >= 0){
+      currPlayer.setPoints(newPoints);
+    }
+  }
+
+  protected boolean isFinished(Player player) {
+    return player.getPoints() == 0;
   }
 
   private int findSumUsingStream(String[] array) {
@@ -30,6 +38,5 @@ public class HundredOneService extends CalculationService {
         .mapToInt(Integer::intValue)
         .sum();
   }
-
 
 }
