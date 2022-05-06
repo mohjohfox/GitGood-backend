@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import dhbw.karlsruhe.gitgood.TestSupport;
 import dhbw.karlsruhe.gitgood.model.Game;
+import dhbw.karlsruhe.gitgood.model.Player;
 import dhbw.karlsruhe.gitgood.service.GameHubService;
 import java.util.Objects;
 import org.junit.Test;
@@ -88,5 +89,29 @@ public class GameControllerTest extends TestSupport {
 
     assertEquals(HttpStatus.OK.value(), response.getStatusCode().value());
     assertTrue(Objects.requireNonNull(response.getBody()).isFinished());
+  }
+
+  @Test
+  public void calculateGame_WithValidGameParameter_CheckNextPlayer() {
+    Game game = createGame();
+    gameHubService.openNewGame(game);
+
+    String baseUrl = "http://localhost:" + randomServerPort + "/game/"+game.getId()+"/round/submit";
+
+    HttpEntity request = new HttpEntity(new String[]{"60", "21", "0"});
+    ResponseEntity<Game> response = restTemplate.exchange(baseUrl, HttpMethod.POST, request,
+        Game.class);
+
+    assertEquals(HttpStatus.OK.value(), response.getStatusCode().value());
+    assertFalse(Objects.requireNonNull(response.getBody()).isFinished());
+    assertEquals(game.getPlayers().get(1), response.getBody().getCurrentPlayer());
+
+    ResponseEntity<Game> response2 = restTemplate.exchange(baseUrl, HttpMethod.POST, request,
+        Game.class);
+
+    assertEquals(HttpStatus.OK.value(), response2.getStatusCode().value());
+    assertFalse(Objects.requireNonNull(response2.getBody()).isFinished());
+    assertEquals(game.getPlayers().get(0), response2.getBody().getCurrentPlayer());
+
   }
 }
