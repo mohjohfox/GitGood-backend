@@ -18,7 +18,7 @@ public class ThreeHundredOneService extends CalculationService {
     int oldPoints = currentPlayer.getPoints();
     int newPoints = oldPoints - sumOfThrownPoints;
 
-    if (newPoints > 0){
+    if (newPoints >= 0){
       currentPlayer.setPoints(newPoints);
     }
 

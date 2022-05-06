@@ -21,10 +21,10 @@ public class Security extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http.authorizeRequests()
-        .antMatchers("/test", "/", "/game/start", "/allGamemodes", "/gamemode/*", "/allGames", "/delete-all", "/delete/*")
+        .antMatchers("/test", "/*", "/game/start", "/game/*/round/submit", "/allGamemodes", "/gamemode/*", "/allGames", "/delete-all", "/delete/*")
         .permitAll().and()
         .csrf()
-        .ignoringAntMatchers("/login", "/game/start", "/allGamemodes", "/gamemode/*", "/allGames", "/delete-all", "/delete/*");
+        .ignoringAntMatchers("/login", "/game/start", "/game/*/round/submit", "/allGamemodes", "/gamemode/*", "/allGames", "/delete-all", "/delete/*");
     http.exceptionHandling().accessDeniedPage("/access-denied");
     http.cors();
   }

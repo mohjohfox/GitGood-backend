@@ -20,10 +20,23 @@ public class GameHub {
         String generatedGameId = UUID.randomUUID().toString();
         game.setId(generatedGameId);
         game.setCurrentPlayer(game.getPlayers().get(0));
+        initilizePoints(game);
         openGames.add(game);
     }
 
     public List<Game> getOpenGames() {
         return openGames;
+    }
+
+    private void initilizePoints(Game game){
+        switch (game.getGameMode().getName()){
+            case "501":
+                game.getPlayers().forEach(player -> player.setPoints(501));
+                break;
+
+            case "301":
+                game.getPlayers().forEach(player -> player.setPoints(301));
+                break;
+        }
     }
 }
