@@ -6,7 +6,7 @@ import java.util.Arrays;
 import org.springframework.stereotype.Service;
 
 @Service
-public class XXX_HundredOneService extends CalculationService {
+public class HundredOneService extends CalculationService {
 
   @Override
   public Game calculateRound(Game game){

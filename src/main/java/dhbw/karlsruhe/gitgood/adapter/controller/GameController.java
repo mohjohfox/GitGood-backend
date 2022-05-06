@@ -19,8 +19,8 @@ public class GameController {
   private GameService gameService;
 
   @PostMapping(value = "/game/{gameId}/round/submit", consumes = MediaType.ALL_VALUE)
-  public ResponseEntity<Game> startGame(@PathVariable String gameId, @RequestBody String[] thrownPoints) {
-    Optional<Game> optionalGame = gameService.calculateRound(gameId, thrownPoints);
+  public ResponseEntity<Game> submitRound(@PathVariable String gameId, @RequestBody String[] thrownPoints) {
+    Optional<Game> optionalGame = gameService.calculateNewGameState(gameId, thrownPoints);
     return optionalGame.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
         .orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
   }

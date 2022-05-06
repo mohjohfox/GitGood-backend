@@ -10,35 +10,42 @@ import org.springframework.stereotype.Service;
 public class GameService {
 
   @Autowired
-  private XXX_HundredOneService xxx_hundredOneService;
+  private HundredOneService hundredOneService;
   @Autowired
   private GameHubService gameHubService;
-  public Optional<Game> calculateRound(String gameId, String[] thrownPoints){
-    Optional<Game> game = gameHubService.getGameById(gameId);
+  public Optional<Game> calculateNewGameState(String gameId, String[] thrownPoints){
+    Optional<Game> game = getGame(gameId);
 
     if (game.isPresent()){
-      setThrownPoints(game.get(), thrownPoints);
-      GameMode gameMode = game.get().getGameMode();
-      Optional<CalculationService> calculationService = findCalculationService(gameMode);
-
-      if (calculationService.isPresent()){
-        Game calculatedGame = calculationService.get().calculateRound(game.get());
-        return Optional.of(calculatedGame);
-      }
-
-    } else {
-      return Optional.empty();
+      Game currGame = game.get();
+      setThrownPoints(currGame, thrownPoints);
+      return calculateCurrentRound(currGame);
     }
-
     return Optional.empty();
+  }
 
+  private Optional<Game> calculateCurrentRound(Game currGame) {
+    Optional<CalculationService> calculationService = getCalculationService(currGame);
+    if (calculationService.isPresent()){
+      Game calculatedGame = calculationService.get().calculateRound(currGame);
+      return Optional.of(calculatedGame);
+    }
+    return Optional.empty();
+  }
+
+  private Optional<CalculationService> getCalculationService(Game game) {
+    return findCalculationService(game.getGameMode());
+  }
+
+  private Optional<Game> getGame(String gameId){
+     return gameHubService.getGameById(gameId);
   }
 
   private Optional<CalculationService> findCalculationService(GameMode gameMode){
     switch (gameMode.getName()){
       case "501":
       case "301":
-        return Optional.ofNullable(xxx_hundredOneService);
+        return Optional.ofNullable(hundredOneService);
     }
 
     return Optional.empty();
