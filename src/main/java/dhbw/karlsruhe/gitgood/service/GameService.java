@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 public class GameService {
 
   @Autowired
-  private ThreeHundredOneService threeHundredOneService;
+  private XXX_HundredOneService xxx_hundredOneService;
   @Autowired
   private GameHubService gameHubService;
   public Optional<Game> calculateRound(String gameId, String[] thrownPoints){
@@ -38,7 +38,7 @@ public class GameService {
     switch (gameMode.getName()){
       case "501":
       case "301":
-        return Optional.ofNullable(threeHundredOneService);
+        return Optional.ofNullable(xxx_hundredOneService);
     }
 
     return Optional.empty();
