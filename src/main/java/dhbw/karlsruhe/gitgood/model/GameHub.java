@@ -7,7 +7,7 @@ import java.util.UUID;
 public class GameHub {
 
     private static GameHub gameHub = null;
-    private List<Game> openGames = new ArrayList<>();
+    private final List<Game> openGames = new ArrayList<>();
 
     public static GameHub getInstance() {
         if (gameHub == null) {
@@ -20,7 +20,7 @@ public class GameHub {
         String generatedGameId = UUID.randomUUID().toString();
         game.setId(generatedGameId);
         game.setCurrentPlayer(game.getPlayers().get(0));
-        initilizePoints(game);
+        initializePoints(game);
         openGames.add(game);
     }
 
@@ -28,7 +28,7 @@ public class GameHub {
         return openGames;
     }
 
-    private void initilizePoints(Game game){
+    private void initializePoints(Game game){
         switch (game.getGameMode().getName()){
             case "501":
                 game.getPlayers().forEach(player -> player.setPoints(501));
