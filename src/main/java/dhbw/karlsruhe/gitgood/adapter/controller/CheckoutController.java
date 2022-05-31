@@ -15,7 +15,7 @@ public class CheckoutController {
   @Autowired
   private CheckoutService checkoutService;
 
-  @GetMapping(value = "/checkoutOptions/{rest}")
+  @GetMapping(value = "/checkoutoptions/{rest}")
   public ResponseEntity<List<String>> getAllOpenGames(@PathVariable int rest) {
     return new ResponseEntity<>(checkoutService.getCheckoutOptions(rest), HttpStatus.OK);
   }
