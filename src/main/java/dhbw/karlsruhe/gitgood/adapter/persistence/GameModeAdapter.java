@@ -2,14 +2,13 @@ package dhbw.karlsruhe.gitgood.adapter.persistence;
 
 import dhbw.karlsruhe.gitgood.model.GameMode;
 import dhbw.karlsruhe.gitgood.port.GameModePort;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
 
 @Component
 public class GameModeAdapter implements GameModePort {
@@ -25,13 +24,12 @@ public class GameModeAdapter implements GameModePort {
     @Override
     public Optional<GameMode> getGameModeByName(String gameModeName) {
 
-        List<Map<String, Object>> maps = jdbc.queryForList(
-                "SELECT * FROM gamemode c WHERE c.name = '" + gameModeName + "'");
+        List<Map<String, Object>> databaseEntries = jdbc.queryForList(
+            "SELECT * FROM gamemode c WHERE c.name = '" + gameModeName + "'");
 
-
-        return maps.isEmpty() ? Optional.empty() : Optional.of(new GameMode(
-                maps.get(0).get("shortName").toString(),
-                maps.get(0).get("description").toString()));
+        return databaseEntries.isEmpty() ? Optional.empty() : Optional.of(new GameMode(
+            databaseEntries.get(0).get("shortName").toString(),
+            databaseEntries.get(0).get("description").toString()));
     }
 
     @Override
@@ -39,11 +37,12 @@ public class GameModeAdapter implements GameModePort {
 
         List<GameMode> allGameModes = new ArrayList<>();
 
-        List<Map<String, Object>> maps = jdbc.queryForList("SELECT * FROM gamemode");
+        List<Map<String, Object>> databaseEntries = jdbc.queryForList("SELECT * FROM gamemode");
 
-        if (!maps.isEmpty()){
-            maps.forEach( item -> {
-                allGameModes.add(new GameMode( item.get("shortName").toString(), item.get("description").toString() ));
+        if (!databaseEntries.isEmpty()) {
+            databaseEntries.forEach(entry -> {
+                allGameModes.add(new GameMode(entry.get("shortName").toString(),
+                    entry.get("description").toString()));
             });
             return allGameModes;
         }
