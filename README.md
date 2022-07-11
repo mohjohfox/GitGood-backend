@@ -21,3 +21,23 @@ content as in `application.properties`
 3. Setup the local spring profile in the VM-options in the start configuration
 
    `-Dspring.profiles.active=local`
+
+
+4. Run the init.sql script in the database directory to generate the required database schema.
+
+# Build
+
+`mvn clean install`
+
+or skipping tests with
+
+`mvn clean install -Dmaven.test.skip=true`
+
+# Build and package
+
+`mvn package`
+
+# Run tests
+
+1. Run all tests: `mvn clean test`
+2. Run specific tests: `mvn clean test -Dtest=your.package.TestClassName`
